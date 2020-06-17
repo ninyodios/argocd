@@ -1,0 +1,20 @@
+---
+# check https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/ for more info
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: demo
+  namespace: argocd
+spec:
+  description: "Argo rollouts demo"
+  sourceRepos:
+    - https://github.com/ninyodios/rollouts-demo.git
+  destinations:
+  - namespace: demo
+    server: 'https://kubernetes.default.svc'
+  roles:
+  - description: Jenkins
+    name: jenkins
+    policies:
+      - p, proj:demo:jenkins, applications, *, demo/*, allow
